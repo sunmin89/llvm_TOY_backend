@@ -25,7 +25,7 @@ using namespace llvm;
 #include "TOYGenAsmWriter.inc"
 
 void TOYInstPrinter::printRegName(raw_ostream &OS, unsigned RegNo) const {
-  //OS << StringRef(getRegisterName(RegNo)).lower();
+  OS << StringRef(getRegisterName(RegNo)).lower();
 }
 
 void TOYInstPrinter::printInst(const MCInst *MI, raw_ostream &O,
