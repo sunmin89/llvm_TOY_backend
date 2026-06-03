@@ -12,6 +12,7 @@
 #include "llvm/ADT/Statistic.h"
 #include "llvm/ADT/StringSwitch.h"
 #include "llvm/MC/MCELFObjectWriter.h"
+#include "llvm/MC/MCObjectWriter.h"
 #include "llvm/MC/MCExpr.h"
 #include "llvm/MC/MCSectionELF.h"
 #include "llvm/MC/MCValue.h"
@@ -54,16 +55,15 @@ unsigned TOYELFObjectWriter::getRelocType(MCContext &Ctx, const MCValue &Target,
     return Type;
 }
 
-//TOYELFObjectWriter::TOYELFObjectWriter(uint8_t OSABI)
-  //  : MCELFObjectTargetWriter(/*Is64Bit*/ false, OSABI, /*ELF::EM_TOY*/ ELF::EM_ARM,
- //           /*HasRelocationAddend*/ false) {}
-//
- //   TOYELFObjectWriter::~TOYELFObjectWriter() {}
-//
-  //  std::unique_ptr<MCObjectWriter>
- //   createTOYELFObjectWriter(raw_pwrite_stream &OS, uint8_t OSABI) {
-       // return createELFObjectWriter(
-      //          make_unique<TOYELFObjectWriter>(OSABI), OS,
-    //            /*IsLittleEndian=*/true);
-  //  }
-//
+TOYELFObjectWriter::TOYELFObjectWriter(uint8_t OSABI)
+   : MCELFObjectTargetWriter(/*Is64Bit*/ false, OSABI, /*ELF::EM_TOY*/ ELF::EM_ARM,
+           /*HasRelocationAddend*/ false) {}
+
+TOYELFObjectWriter::~TOYELFObjectWriter() {}
+
+std::unique_ptr<MCObjectWriter> llvm::createTOYELFObjectWriter(raw_pwrite_stream &OS, uint8_t OSABI) {
+       return createELFObjectWriter(
+               make_unique<TOYELFObjectWriter>(OSABI), OS,
+               /*IsLittleEndian=*/true);
+}
+

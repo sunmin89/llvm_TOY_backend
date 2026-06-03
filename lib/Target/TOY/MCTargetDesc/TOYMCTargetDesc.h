@@ -17,6 +17,7 @@
 #include "llvm/Config/config.h"
 #include "llvm/MC/MCTargetOptions.h"
 #include "llvm/Support/DataTypes.h"
+#include "llvm/MC/MCELFStreamer.h"
 #include <memory>
 
 
@@ -35,6 +36,7 @@ class MCAsmBackend;
 
 class StringRef;
 class raw_ostream;
+class raw_pwrite_stream;
 
 Target &getTheTOYTarget();
 
@@ -46,7 +48,7 @@ MCCodeEmitter *createTOYMCCodeEmitter(const MCInstrInfo &MCII,
 MCAsmBackend *createTOYAsmBackend(const Target &T, const MCRegisterInfo &MRI,
                                   StringRef TT, StringRef CPU);
 
-MCObjectWriter *createTOYELFObjectWriter(raw_ostream &OS, uint8_t OSABI);
+std::unique_ptr<MCObjectWriter> createTOYELFObjectWriter(raw_pwrite_stream &OS, uint8_t OSABI);
 
 } // End llvm namespace
 
