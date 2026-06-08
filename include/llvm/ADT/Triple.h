@@ -145,7 +145,8 @@ public:
     AMD,
     Mesa,
     SUSE,
-    LastVendorType = SUSE
+    ToyVendor,
+    LastVendorType = ToyVendor
   };
   enum OSType {
     UnknownOS,

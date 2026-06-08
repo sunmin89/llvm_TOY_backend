@@ -56,6 +56,13 @@ TOYTargetMachine::TOYTargetMachine(const Target &T, const Triple &TT, StringRef 
     TLOF(make_unique<TargetLoweringObjectFileELF>()),
     Subtarget(TT, CPU, FS, *this) {
         initAsmInfo();
+        // 调试输出
+        llvm::errs() << "TOYTargetMachine constructor called\n";
+        llvm::errs() << "Triple: " << TT.str() << "\n";
+        llvm::errs() << "Vendor: " << TT.getVendorName() << "\n";
+        if (TT.getVendor() == Triple::ToyVendor) {
+            llvm::outs() << "hello toyvendor \n";
+        }
     }
 
 namespace {
